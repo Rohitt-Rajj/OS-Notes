@@ -1,9 +1,9 @@
-<h2 align="center">Operating System goals </h2>
-- Maximum CPU utilization
-- Less process startvation (every process gets a fair chance to run )
-- Higher priority job execution
+## <h2 align="center">Operating System goals </h2>
+- Maximum CPU utilization<br>
+- Less process startvation (every process gets a fair chance to run )<br>
+- Higher priority job execution<br>
 
-## 🖥️ Types of Operating Systems
+### 🖥️ Types of Operating Systems
 
 Operating Systems are classified based on how they work and how they manage resources.
 
