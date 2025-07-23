@@ -1,4 +1,6 @@
-## Operating System Notes
+<h2 align="center">Operating System Notes</h2>
+
+
 
 ###  What is OS
 An *operating system* is a piece of software that manages all the resources of a computer system, both hardware and software, and provides an environment in which the user can execute his/her programs in a convenient and efficient manner by hiding underlying complexity of the hardware and acting as a resource manager.
