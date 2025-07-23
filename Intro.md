@@ -171,6 +171,6 @@ Summary:
 | Real-Time (RTOS)     | Immediate response                   | Medical devices  |
 | Multi-User           | Multiple user accounts               | Linux, UNIX      |
 | Multitasking         | Run many apps simultaneously         | Windows          |
-| Mobile               | Smartphones and tablets              | Android, iOS     |
+
 
 
