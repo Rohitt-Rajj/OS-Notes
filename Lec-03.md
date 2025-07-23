@@ -1,7 +1,7 @@
 ## Multi-Tasking vs Multi-Threading
 
 **Program:** A Program is an executable file which contains a certain set of instructions written
-to complete the specific job or operation on your computer.
+to complete the specific job or operation on your computer.<br>
 • It’s a compiled code. Ready to be executed. <br>
 • Stored in Disk
 
