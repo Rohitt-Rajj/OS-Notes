@@ -1,4 +1,4 @@
-# Operating System goals
+<h2 align="center">Operating System goals </h2>
 - Maximum CPU utilization
 - Less process startvation (every process gets a fair chance to run )
 - Higher priority job execution
