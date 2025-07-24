@@ -1,4 +1,4 @@
-# System Calls in Operating System
+ <h1 align="center" >System Calls in Operating System</h2>
 
 ## What is a System Call?
 
@@ -160,5 +160,4 @@ System calls vary across different operating systems. Here's a comparison of com
 
 - **Windows** system calls are implemented using functions in the **Windows API**, which internally interact with the Windows kernel.
 - **Unix/Linux** system calls are more direct and follow **POSIX standards**.
-
 
