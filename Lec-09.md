@@ -1,4 +1,4 @@
-# Lec-9: Introduction to Process
+# Introduction to Process
 
 ---
 

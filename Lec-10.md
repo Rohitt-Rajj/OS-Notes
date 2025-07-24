@@ -1,4 +1,4 @@
-# Lec-10: Process States and Queues
+#  Process States and Queues
 
 ---
 
