@@ -1,47 +1,83 @@
 # LEC-17: Conditional Variables and Semaphores for Thread Synchronization
 
+---
+
 ## 1. Conditional Variable
 
-**Definition:**  
-A *conditional variable* is a synchronization tool that allows a thread to wait (sleep) until a specific condition is true or an event occurs. It always works together with a lock (mutex).
+- A **Conditional Variable** is a synchronization mechanism that allows a thread to **wait until a specific condition is met**.
+- It is always used **along with a lock** (mutex).
 
-**Explanation:**  
-A thread can only enter a waiting state on a conditional variable if it first acquires the lock. When the thread waits, it *releases* the lock and goes to sleep until another thread signals that the condition is met. After being notified, the waiting thread wakes up, re-acquires the lock immediately, and continues execution. This avoids the problem of *busy waiting*, where a thread wastes CPU cycles repeatedly checking a condition.
+### 🔄 How It Works:
+1. A thread acquires the lock.
+2. It checks a condition.
+3. If the condition is false, it **waits** using the conditional variable.
+4. While waiting, it **releases the lock** so other threads can make progress.
+5. When another thread updates the condition and **signals**, the waiting thread wakes up.
+6. The awakened thread **reacquires the lock** and resumes execution.
 
-**Why use conditional variables?**  
-- To wait efficiently without using CPU cycles unnecessarily (no busy waiting).  
-- To synchronize threads based on certain conditions or events.
-
-**Example:**  
-Imagine a producer-consumer scenario where the consumer waits until the producer has placed an item in a shared buffer. The consumer thread waits on a conditional variable, releasing the lock, until the producer signals that an item is available. Then the consumer wakes up, acquires the lock, and processes the item.
+### ✅ Why Use Conditional Variables?
+- To **avoid busy waiting** (where CPU cycles are wasted in checking the condition repeatedly).
+- Helps achieve **better CPU efficiency**.
+- **No contention** because waiting threads release the lock.
 
 ---
 
 ## 2. Semaphores
 
-**Definition:**  
-A *semaphore* is a synchronization method that uses an integer value to control access to a finite number of resources. It is used to allow multiple threads to manage shared resources safely.
+- A **semaphore** is a synchronization primitive that controls **access to shared resources**.
+- It is represented by an **integer value**, which indicates the number of available resources.
 
-**Types:**
-- **Binary Semaphore:** Value is either 0 or 1. It behaves like a mutex lock, allowing one thread at a time.
-- **Counting Semaphore:** Can have a range of integer values, representing how many instances of a resource are available.
+### 🔹 Types of Semaphores:
 
-**Explanation:**  
-Multiple threads can enter their critical sections concurrently, up to the number of available resources counted by the semaphore. Semaphores help coordinate access to limited resources, unlike mutexes which control exclusive access to a single resource.
+#### a. Binary Semaphore (Value: 0 or 1)
+- Also called a **mutex lock**.
+- Used to allow **one thread at a time** to access a resource.
 
-To avoid busy waiting:
-- When a thread calls `wait()` (or P operation) on a semaphore whose value is zero or less, it does not spin in a loop but *blocks* itself and is placed in a waiting queue.
-- When another thread executes `signal()` (or V operation), it wakes up one waiting thread, which then becomes ready to run.
+#### b. Counting Semaphore (Value: 0 to N)
+- Can be used when there are **multiple instances** of a resource.
+- Allows up to `N` threads to access the critical section **concurrently**.
 
-**Example:**
-
-Imagine a printer queue shared by several threads but only 3 printers are available. A counting semaphore with initial value 3 can be used. Each time a thread wants to print:
-
+### ✅ Characteristics:
+- A **mutex** allows only one thread at a time.
+- A **counting semaphore** allows **multiple threads** to access a **limited number** of instances.
 
 ---
 
-**Summary:**  
-- *Conditional variables* let threads sleep efficiently, waiting for a condition to become true, working alongside locks.  
-- *Semaphores* manage access to a finite number of shared resources, allowing multiple threads to proceed up to the resource limit.  
-- Both prevent busy waiting by blocking and waking threads appropriately, ensuring efficient CPU usage in thread synchronization.
+### ⚙️ How Semaphore Works (wait & signal)
+
+- `wait(S)`:
+  - If the value of `S` > 0, decrement it and allow the thread to continue.
+  - If `S <= 0`, the thread is **blocked** and placed in the **waiting queue**.
+  - The thread's state becomes **Waiting** and CPU is given to another thread.
+
+- `signal(S)`:
+  - Increments the value of `S`.
+  - If any thread is waiting in the queue, it is **woken up** using a `wakeup()` operation.
+  - The woken thread is moved to the **Ready Queue**.
+
+### 🔁 No Busy Waiting:
+- Semaphores avoid busy waiting by blocking the thread **instead of looping**.
+- Scheduler picks another process during that time.
+
+---
+
+## 🔃 Summary Table
+
+| Feature               | Conditional Variable                          | Semaphore                          |
+|-----------------------|-----------------------------------------------|-------------------------------------|
+| Purpose               | Wait for a specific condition                 | Control access to shared resources  |
+| Works with            | Must be used with a lock                      | Can be standalone                   |
+| Avoids Busy Waiting   | ✅ Yes                                         | ✅ Yes                               |
+| Blocking/Waiting      | Threads wait for a condition to be signaled  | Threads wait if resource not free   |
+| Binary Type           | ❌ (not binary)                               | ✅ Binary Semaphore = mutex lock     |
+| Counting Type         | ❌                                            | ✅ Counting Semaphore                |
+| Thread Wakeup         | Uses signal/broadcast                        | Uses signal + wakeup operation      |
+
+---
+
+## ✅ Key Takeaways
+
+- Use **conditional variables** when you want a thread to wait for some **event or condition**.
+- Use **semaphores** when you want to **control the number of threads** that access shared resources.
+- Both avoid **busy waiting** and improve **CPU efficiency**.
 
